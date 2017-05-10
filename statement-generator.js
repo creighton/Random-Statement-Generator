@@ -6,9 +6,11 @@ const sentencer = require('sentencer');
 const ActivityTypes = require('./activity-types');
 const Verbs = require('./verbs');
 const ActorAccounts = require('./actor-accounts');
+const words = require('./words');
 
+// 1000 words, 1,000,000 = use all 1000 words (3 words), 100,00 = use 100 words (3 words), 10,000 = use 10 words
 class StatementGenerator {
-    constructor() {
+    constructor(totalstmts) {
         this.templateStmt = {
             "id": "",
             "version": "1.0.0",
@@ -23,6 +25,7 @@ class StatementGenerator {
             },
             "authority": {}
         };
+        this.totalstmts = totalstmts;
         this.startDate = new Date('2014', '01', '01');
         this.endDate = new Date();
         sentencer.configure({
@@ -36,6 +39,7 @@ class StatementGenerator {
     }
 
     createBatch (count) {
+        this.totalstmts = this.totalstmts || count;
         let stmts = [];
         for (let i = 0; i < count; i++) {
             stmts.push(this.create());
@@ -45,6 +49,7 @@ class StatementGenerator {
     }
 
     create () {
+        this.totalstmts = this.totalstmts || 1;
         let stmt = this._getTemplate();
         let date = rand.date(this.startDate, this.endDate);
         let timestampdate = date;
@@ -68,23 +73,21 @@ class StatementGenerator {
 
     _addTheRest (stmt) {
         let activityType = ActivityTypes[rand.integer(0, ActivityTypes.length - 1)];
-        let activityTypeString = this._getTypeString(activityType);
         
-        stmt.object = this._createActivity(activityType, activityTypeString);
+        stmt.object = this._createActivity(activityType, this._getActivityName());
         stmt.verb = this._createVerb(activityType);
         stmt.result = this._createResult(activityType, stmt.verb);
         stmt.context = this._createContext(activityType, stmt.verb);
     }
 
-    _createActivity (activityType, activityTypeString) {
-        let guid = uuidv4();
+    _createActivity (activityType, activityName) {
         let activity = {
-            id: `http://random.example.com/activity/${guid}`,
+            id: `http://random.example.com/activity/${activityName}`,
         };
         if (activityType !== 'https://w3id.org/xapi/none') {
             activity.definition = {
                 name: {
-                    en: `Random '${activityTypeString}' Activity ${guid.substr(0,6)}`
+                    en: activityName
                 },
                 type: activityType
             };
@@ -150,6 +153,12 @@ class StatementGenerator {
     _getTypeString (activityType) {
         // turns http://adlnet.gov/expapi/activities/media to media 
         return activityType.substr(activityType.lastIndexOf('/') + 1);
+    }
+
+    _getActivityName () {
+        if (this.totalstmts === 1) return `${rand.picker(words)}`;
+        let maxidx = Math.ceil(Math.sqrt(this.totalstmts)) - 1;
+        return `${words[rand.integer(0,maxidx)]}-${words[rand.integer(0,maxidx)]}-${words[rand.integer(0,maxidx)]}`;
     }
 }
 

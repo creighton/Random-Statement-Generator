@@ -11,7 +11,7 @@ class CreateRandomStatements extends Readable{
 
         this.stmts = stmts;
         this.batch = batch;
-        this.SG = new StatementGenerator();
+        this.SG = new StatementGenerator(stmts);
     }
 
     _read (size) {
