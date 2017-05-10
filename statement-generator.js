@@ -158,7 +158,7 @@ class StatementGenerator {
     _getActivityName () {
         if (this.totalstmts === 1) return `${rand.picker(words)}`;
         let maxidx = Math.ceil(Math.sqrt(this.totalstmts)) - 1;
-        return `${words[rand.integer(0,maxidx)]}-${words[rand.integer(0,maxidx)]}-${words[rand.integer(0,maxidx)]}`;
+        return `${words[rand.integer(0,maxidx)]}-${words[rand.integer(0,maxidx)]}`;
     }
 }
 
