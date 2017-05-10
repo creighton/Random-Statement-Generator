@@ -1,0 +1,20 @@
+[
+    "http://adlnet.gov/expapi/activities/assessment",
+    "http://adlnet.gov/expapi/activities/attempt",
+    "http://adlnet.gov/expapi/activities/course",
+    "http://adlnet.gov/expapi/activities/file",
+    "http://adlnet.gov/expapi/activities/interaction",
+    "http://adlnet.gov/expapi/activities/lesson",
+    "http://adlnet.gov/expapi/activities/link",
+    "http://adlnet.gov/expapi/activities/media",
+    "http://adlnet.gov/expapi/activities/meeting",
+    "http://adlnet.gov/expapi/activities/module",
+    "http://adlnet.gov/expapi/activities/objective",
+    "http://adlnet.gov/expapi/activities/performance",
+    "http://adlnet.gov/expapi/activities/profile",
+    "http://adlnet.gov/expapi/activities/question",
+    "http://adlnet.gov/expapi/activities/simulation",
+    "https://w3id.org/xapi/video/activity-type/video",
+    "https://w3id.org/xapi/cmi5/activitytype/block",
+    "https://w3id.org/xapi/none"
+]

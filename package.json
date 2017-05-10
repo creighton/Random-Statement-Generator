@@ -1,0 +1,16 @@
+{
+  "name": "rndstmts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "rndstmts.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "random-js": "^1.0.8",
+    "sentencer": "^0.1.5",
+    "uuid": "^3.0.1"
+  }
+}
